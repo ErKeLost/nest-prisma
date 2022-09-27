@@ -32,60 +32,60 @@ model User {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
-  // Refresh Token
-  refreshToken RefreshToken[]
+  // // Refresh Token
+  // refreshToken RefreshToken[]
 
-  // Tweet
-  tweet Tweet[]
+  // // Tweet
+  // tweet Tweet[]
 
-  // MediaFile
-  mediaFiles MediaFile[]
+  // // MediaFile
+  // mediaFiles MediaFile[]
 }
 
-model RefreshToken {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  token     String   @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  userId    String   @db.ObjectId
-  user      User     @relation(fields: [userId], references: [id])
-}
+// model RefreshToken {
+//   id        String   @id @default(auto()) @map("_id") @db.ObjectId
+//   token     String   @unique
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+//   userId    String   @db.ObjectId
+//   user      User     @relation(fields: [userId], references: [id])
+// }
 
-model Tweet {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  text      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+// model Tweet {
+//   id        String   @id @default(auto()) @map("_id") @db.ObjectId
+//   text      String
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
 
-  // Author
-  author   User   @relation(fields: [authorId], references: [id])
-  authorId String @db.ObjectId
+//   // Author
+//   author   User   @relation(fields: [authorId], references: [id])
+//   authorId String @db.ObjectId
 
-  // 回复
-  replyToId String? @db.ObjectId
+//   // 回复
+//   replyToId String? @db.ObjectId
 
-  // 自己回覆到某一則 tweet 上
-  replyTo Tweet? @relation("replies", fields: [replyToId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+//   // 自己回覆到某一則 tweet 上
+//   replyTo Tweet? @relation("replies", fields: [replyToId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
-  // 自己拥有的所有回复
-  replies Tweet[] @relation("replies")
+//   // 自己拥有的所有回复
+//   replies Tweet[] @relation("replies")
 
-  // MediaFile
-  mediaFiles MediaFile[]
-}
+//   // MediaFile
+//   mediaFiles MediaFile[]
+// }
 
-model MediaFile {
-  id               String   @id @default(auto()) @map("_id") @db.ObjectId
-  url              String
-  providerPublicId String
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
+// model MediaFile {
+//   id               String   @id @default(auto()) @map("_id") @db.ObjectId
+//   url              String
+//   providerPublicId String
+//   createdAt        DateTime @default(now())
+//   updatedAt        DateTime @updatedAt
 
-  // User
-  user   User   @relation(fields: [userId], references: [id])
-  userId String @db.ObjectId
+//   // User
+//   user   User   @relation(fields: [userId], references: [id])
+//   userId String @db.ObjectId
 
-  // Tweets
-  tweet   Tweet?  @relation(fields: [tweetId], references: [id])
-  tweetId String? @db.ObjectId
-}
+//   // Tweets
+//   tweet   Tweet?  @relation(fields: [tweetId], references: [id])
+//   tweetId String? @db.ObjectId
+// }
