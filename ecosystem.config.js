@@ -1,14 +1,14 @@
-module.exports = {
-  apps: [
-    {
-      name: 'erkelost',
-      script: 'dist/src/main.js',
-      env_production: {
-        RUNNING_ENV: 'prod',
-      },
-      env_development: {
-        RUNNING_ENV: 'dev',
-      },
-    },
-  ],
-};
+// module.exports = {
+//   apps: [
+//     {
+//       name: 'erkelost',
+//       script: 'dist/src/main.js',
+//       env_production: {
+//         RUNNING_ENV: 'prod',
+//       },
+//       env_development: {
+//         RUNNING_ENV: 'dev',
+//       },
+//     },
+//   ],
+// };

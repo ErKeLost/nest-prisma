@@ -12,15 +12,15 @@ async function bootstrap() {
   }))
   // 配置 swagger
   const config = new DocumentBuilder()
-    .setTitle('Median')
+    .setTitle('Erkelost')
     .setDescription('The Swagger Api')
-    .setVersion('0.0.1')
+    .setVersion('0.0.2')
     .build();
   // 创建 swagger 模块 与 实例
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
   // listener
-  await app.listen(6666);
+  await app.listen(3000);
 }
 bootstrap();
