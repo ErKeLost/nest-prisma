@@ -6,10 +6,12 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   // 全局校验pipe
-  app.useGlobalPipes(new ValidationPipe({
-    // 设置白名单 防止 恶意字段
-    whitelist: true
-  }))
+  app.useGlobalPipes(
+    new ValidationPipe({
+      // 设置白名单 防止 恶意字段
+      whitelist: true,
+    }),
+  );
   // 配置 swagger
   const config = new DocumentBuilder()
     .setTitle('Median')
@@ -21,6 +23,6 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
 
   // listener
-  await app.listen(6666);
+  await app.listen(3333);
 }
 bootstrap();
