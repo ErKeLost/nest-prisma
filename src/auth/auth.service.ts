@@ -14,12 +14,8 @@ export class AuthService {
   ) {}
   async signup(dto: AuthDto) {
     try {
-      console.log(dto)
-
       // generate ths hash password
       const hash = await argon.hash(dto.password)
-      console.log(hash)
-      console.log(dto)
 
       // save new user info in db
       const user = await this.prisma.user.create({
@@ -28,12 +24,10 @@ export class AuthService {
           password: hash
         }
       })
-      console.log(user)
-
       // TODO transformer
       // delete user.password;
       // return the save user
-      return this.signToken(user.id)
+      return this.signToken(user)
     } catch (err) {
       if (err instanceof PrismaClientKnownRequestError) {
         if (err.code === 'P2002') {
@@ -57,24 +51,23 @@ export class AuthService {
     if (!pwMatches) throw new ForbiddenException('Credentials taken')
     return this.signToken(user.id)
   }
-  async signToken(userId: string): Promise<{ access_token: any }> {
+  async signToken(user: any): Promise<{ access_token: any }> {
     const payload = {
-      sub: userId
+      sub: user.id,
+      email: user.email,
+      username: user.username
     }
     const secret = this.config.get('JWT_ACCESS_TOKEN_SECRET')
-    const token = this.jwt.signAsync(payload, {
+    const token = await this.jwt.signAsync(payload, {
       expiresIn: '15m',
       secret
     })
+    console.log(token)
 
     return {
       access_token: token
     }
   }
-  async logout() {
-
-  }
-  async refreshToken() {
-
-  }
+  async logout() {}
+  async refreshToken() {}
 }
