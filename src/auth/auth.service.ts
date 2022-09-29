@@ -71,4 +71,10 @@ export class AuthService {
       access_token: token
     }
   }
+  async logout() {
+
+  }
+  async refreshToken() {
+
+  }
 }

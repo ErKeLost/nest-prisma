@@ -15,4 +15,15 @@ export class AuthController {
   signin(@Body() dto: AuthDto) {
     return this.authService.signin(dto)
   }
+
+  @Post('logout')
+  logout() {
+    return this.authService.logout()
+  }
+
+  @Post('refresh')
+  refreshToken() {
+    return this.authService.refreshToken()
+  }
 }
+
