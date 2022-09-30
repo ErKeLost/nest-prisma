@@ -19,8 +19,8 @@ model User {
   username     String   @unique
   password     String
   profileImage String?
-  createAt    DateTime @default(now())
-  updateAt    DateTime @updatedAt
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 
   // message message[]
 }
