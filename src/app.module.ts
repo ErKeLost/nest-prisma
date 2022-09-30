@@ -12,7 +12,7 @@ import { PrismaModule } from './prisma/prisma.module'
     AuthModule,
     UserModule,
     MessageModule,
-    PrismaModule,
+    PrismaModule
   ],
   controllers: [],
   providers: []
