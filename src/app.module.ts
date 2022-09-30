@@ -4,9 +4,7 @@ import { AuthModule } from './auth/auth.module'
 import { UserModule } from './user/user.module'
 import { MessageModule } from './message/message.module'
 import { PrismaModule } from './prisma/prisma.module'
-import { CloudinaryModule } from './cloudinary/cloudinary.module';
-import { Cloudinary } from './cloudinary';
-import { ClodinaryService } from './clodinary/clodinary.service';
+import { CloudinaryModule } from './cloudinary/cloudinary.module'
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -19,6 +17,6 @@ import { ClodinaryService } from './clodinary/clodinary.service';
     CloudinaryModule
   ],
   controllers: [],
-  providers: [Cloudinary, ClodinaryService]
+  providers: []
 })
 export class AppModule {}
