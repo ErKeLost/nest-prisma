@@ -4,7 +4,6 @@ import { AuthModule } from './auth/auth.module'
 import { UserModule } from './user/user.module'
 import { MessageModule } from './message/message.module'
 import { PrismaModule } from './prisma/prisma.module'
-import { CloudinaryModule } from './cloudinary/cloudinary.module'
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -14,7 +13,6 @@ import { CloudinaryModule } from './cloudinary/cloudinary.module'
     UserModule,
     MessageModule,
     PrismaModule,
-    CloudinaryModule
   ],
   controllers: [],
   providers: []
