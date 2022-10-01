@@ -1,10 +1,14 @@
-import { Injectable } from '@nestjs/common'
-import { PrismaService } from 'src/prisma/prisma.service'
+import { BadRequestException, Injectable } from '@nestjs/common'
+import { CloudinaryService } from '../cloudinary/cloudinary.service'
+import { PrismaService } from '../prisma/prisma.service'
 import { EditUserDto } from './dto'
 
 @Injectable()
 export class UserService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private cloudinary: CloudinaryService
+  ) {}
   async editUser(userId: string, dto: EditUserDto) {
     const user = await this.prisma.user.update({
       where: {
@@ -16,5 +20,11 @@ export class UserService {
     })
     delete user.password
     return user
+  }
+  async uploadImageToCloudinary(file: Express.Multer.File) {
+    console.log(file)
+    return await this.cloudinary.uploadImage(file).catch(() => {
+      throw new BadRequestException('Invalid file type.')
+    })
   }
 }

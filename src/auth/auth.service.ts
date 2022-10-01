@@ -5,12 +5,14 @@ import * as argon from 'argon2'
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime'
 import { JwtService } from '@nestjs/jwt'
 import { ConfigService } from '@nestjs/config'
+import { CloudinaryService } from '../cloudinary/cloudinary.service'
 @Injectable()
 export class AuthService {
   constructor(
     private prisma: PrismaService,
     private jwt: JwtService,
-    private config: ConfigService
+    private config: ConfigService,
+    private cloudinary: CloudinaryService
   ) {}
   async signup(dto: AuthDto) {
     try {

@@ -7,13 +7,14 @@ specifiers:
   '@nestjs/core': ^9.0.0
   '@nestjs/jwt': ^9.0.0
   '@nestjs/passport': ^9.0.0
-  '@nestjs/platform-express': ^9.0.0
+  '@nestjs/platform-express': ^9.1.2
   '@nestjs/schematics': ^9.0.0
   '@nestjs/swagger': ^6.1.2
   '@nestjs/testing': ^9.0.0
   '@prisma/client': ^4.3.1
   '@types/express': ^4.17.13
   '@types/jest': 28.1.8
+  '@types/multer': ^1.4.7
   '@types/node': ^16.0.0
   '@types/passport-jwt': ^3.0.6
   '@types/supertest': ^2.0.11
@@ -21,9 +22,11 @@ specifiers:
   '@typescript-eslint/parser': ^5.0.0
   argon2: ^0.29.1
   bcrypt: ^5.0.1
+  buffer-to-stream: ^1.0.0
   class-transformer: ^0.5.1
   class-validator: ^0.13.2
-  cloudinary: ^1.31.0
+  cloudinary: ^1.32.0
+  dotenv: ^16.0.3
   eslint: ^8.0.1
   eslint-config-prettier: ^8.3.0
   eslint-plugin-prettier: ^4.0.0
@@ -62,9 +65,11 @@ dependencies:
   '@types/passport-jwt': 3.0.6
   argon2: 0.29.1
   bcrypt: 5.0.1
+  buffer-to-stream: 1.0.0
   class-transformer: 0.5.1
   class-validator: 0.13.2
   cloudinary: 1.32.0
+  dotenv: 16.0.3
   formidable: 2.0.1
   human-time: 0.0.2
   jsonwebtoken: 8.5.1
@@ -83,6 +88,7 @@ devDependencies:
   '@nestjs/testing': 9.1.2_j2ls57gnkuuvs6xhnfklmsn2o4
   '@types/express': 4.17.14
   '@types/jest': 28.1.8
+  '@types/multer': 1.4.7
   '@types/node': 16.11.62
   '@types/supertest': 2.0.12
   '@typescript-eslint/eslint-plugin': 5.38.1_c7qepppml3d4ahu5cnfwqe6ltq
@@ -1394,6 +1400,12 @@ packages:
   /@types/mime/3.0.1:
     resolution: {integrity: sha512-Y4XFY5VJAuw0FgAqPNd6NNoV44jbq9Bz2L7Rh/J6jLTiHBSBJa9fxqQIvkIld4GsoDOcCbvzOUAbLPsSKKg+uA==}
 
+  /@types/multer/1.4.7:
+    resolution: {integrity: sha512-/SNsDidUFCvqqcWDwxv2feww/yqhNeTRL5CVoL3jU4Goc4kKEL10T7Eye65ZqPNi4HRx8sAEX59pV1aEH7drNA==}
+    dependencies:
+      '@types/express': 4.17.14
+    dev: true
+
   /@types/node/16.11.62:
     resolution: {integrity: sha512-K/ggecSdwAAy2NUW4WKmF4Rc03GKbsfP+k326UWgckoS+Rzd2PaWbjk76dSmqdLQvLTJAO9axiTUJ6488mFsYQ==}
 
@@ -1449,7 +1461,7 @@ packages:
     dev: true
 
   /@types/superagent/4.1.15:
-    resolution: {integrity: sha512-iiXaOL2wSbnSY4qg0mFPWJHL9iwyEsoNYwaHF2w58/fsVAQJlj+KUfFAFZu+nzbz+b7dUprJEAc+O9vhHHhQTA==, tarball: '@types/superagent/-/superagent-4.1.14.tgz'}
+    resolution: {integrity: sha512-iiXaOL2wSbnSY4qg0mFPWJHL9iwyEsoNYwaHF2w58/fsVAQJlj+KUfFAFZu+nzbz+b7dUprJEAc+O9vhHHhQTA==, tarball: '@types/superagent/-/superagent-4.1.15.tgz'}
     deprecated: '[WARNING] Use 4.1.14 instead of 4.1.15, reason: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/58445'
     dependencies:
       '@types/cookiejar': 2.1.2
@@ -2215,6 +2227,11 @@ packages:
   /buffer-from/1.1.2:
     resolution: {integrity: sha512-E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ==}
 
+  /buffer-to-stream/1.0.0:
+    resolution: {integrity: sha512-EMiRQgNY0mFGbPm7zV3b7vc1mSNs7WSkZvH2Rmvl2tjTe43uCuRlCVw1OAEon7NXBTT7He1Pf2lLoKKgvcAujA==}
+    engines: {node: '>=6'}
+    dev: false
+
   /buffer/5.7.1:
     resolution: {integrity: sha512-EHcyIPBQ4BSGlvjB16k5KgAJ27CIsHY/2JBmCRReo48y9rQ3MaUzWX3KVlBa4U7MyX02HdVj0K7C3WaB3ju7FQ==}
     dependencies:
@@ -2953,6 +2970,11 @@ packages:
 
   /dotenv/16.0.1:
     resolution: {integrity: sha512-1K6hR6wtk2FviQ4kEiSjFiH5rpzEVi8WW0x96aztHVMhEspNpc4DVOUTEHtEva5VThQ8IaBX1Pe4gSzpVVUsKQ==}
+    engines: {node: '>=12'}
+    dev: false
+
+  /dotenv/16.0.3:
+    resolution: {integrity: sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==}
     engines: {node: '>=12'}
     dev: false
 
