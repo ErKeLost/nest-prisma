@@ -33,20 +33,9 @@ export class UserController {
   }
 
   @Post('upload')
-  // @UseInterceptors(FileInterceptor('file'))
-  @UseInterceptors(
-    FileFieldsInterceptor([
-      { name: 'file', maxCount: 1 },
-      { name: 'name', maxCount: 1 }
-    ])
-  )
-  uploadFile(@UploadedFile() file: Express.Multer.File) {
-    const res = {
-      cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-      api_key: process.env.CLOUDINARY_API_KEY,
-      api_secret: process.env.CLOUDINARY_API_SECRET
-    }
-    console.log(res)
+  @UseInterceptors(FileInterceptor('file'))
+  uploadImage(@UploadedFile() file: Express.Multer.File) {
+    console.log(file)
     return this.userService.uploadImageToCloudinary(file)
   }
 }

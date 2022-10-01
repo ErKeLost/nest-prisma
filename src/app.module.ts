@@ -5,7 +5,7 @@ import { UserModule } from './user/user.module'
 import { MessageModule } from './message/message.module'
 import { PrismaModule } from './prisma/prisma.module'
 import { CloudinaryModule } from './cloudinary/cloudinary.module'
-import { TestModule } from './test/test.module';
+import { TestModule } from './test/test.module'
 @Module({
   imports: [
     ConfigModule.forRoot({

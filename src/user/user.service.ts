@@ -22,9 +22,8 @@ export class UserService {
     return user
   }
   async uploadImageToCloudinary(file: Express.Multer.File) {
-    console.log(file)
-    return await this.cloudinary.uploadImage(file).catch(() => {
-      throw new BadRequestException('Invalid file type.')
-    })
+    const res = await this.cloudinary.uploadImage(file)
+    console.log(res)
+    return file
   }
 }
