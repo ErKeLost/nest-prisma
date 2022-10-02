@@ -22,10 +22,10 @@ model User {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
-  // message message[]
+  Message Message[]
 }
 
-model message {
+model Message {
   id   String @id @default(auto()) @map("_id") @db.ObjectId
   text String
 
@@ -33,8 +33,11 @@ model message {
   updatedAt DateTime @updatedAt
 
   // Author
-  // author   User   @relation(fields: [authorId], references: [id])
-  authorId String @db.ObjectId
+  author    User      @relation(fields: [authorId], references: [id])
+  authorId  String    @db.ObjectId
+  replyToId String?   @db.ObjectId
+  replyTo   Message?  @relation("replies", fields: [replyToId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  replies   Message[] @relation("replies")
 }
 
 model Auth {

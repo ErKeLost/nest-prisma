@@ -2,10 +2,10 @@ import { ConfigModule } from '@nestjs/config'
 import { Module } from '@nestjs/common'
 import { AuthModule } from './auth/auth.module'
 import { UserModule } from './user/user.module'
-import { MessageModule } from './message/message.module'
 import { PrismaModule } from './prisma/prisma.module'
 import { CloudinaryModule } from './cloudinary/cloudinary.module'
 import { MulterModule } from '@nestjs/platform-express'
+import { DynamicModule } from './dynamic/dynamic.module'
 // import COSStorage from 'multer-cos-x'
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const COSStorage = require('multer-cos-x')
@@ -16,7 +16,6 @@ const COSStorage = require('multer-cos-x')
     }),
     AuthModule,
     UserModule,
-    MessageModule,
     PrismaModule,
     CloudinaryModule,
     MulterModule.register({
@@ -37,7 +36,8 @@ const COSStorage = require('multer-cos-x')
           }
         }
       })
-    })
+    }),
+    DynamicModule
   ],
   controllers: [],
   providers: []
