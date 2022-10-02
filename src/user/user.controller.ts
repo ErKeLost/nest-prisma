@@ -18,9 +18,13 @@ import { GetUser } from '../auth/decorator'
 import { JwtGuard } from '../auth/guard'
 import { EditUserDto } from './dto'
 import { UserService } from './user.service'
+import { CosService } from '../tencentCloud/cos.service'
 @Controller('users')
 export class UserController {
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private CosService: CosService
+  ) {}
   @UseGuards(JwtGuard)
   @Get()
   getUser(@GetUser() user: User, @GetUser('email') email: string) {
@@ -35,7 +39,12 @@ export class UserController {
   @Post('upload')
   @UseInterceptors(FileInterceptor('file'))
   uploadImage(@UploadedFile() file: Express.Multer.File) {
-    console.log(file)
     return this.userService.uploadImageToCloudinary(file)
+  }
+
+  @Post('uploadFile')
+  @UseInterceptors(FileInterceptor('file'))
+  uploadFile(@UploadedFile() file: Express.Multer.File) {
+    return this.CosService.uploadImage(file)
   }
 }
