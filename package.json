@@ -43,6 +43,7 @@
     "cos-nodejs-sdk-v5": "^2.11.12",
     "dotenv": "^16.0.3",
     "formidable": "^2.0.1",
+    "fs-extra": "^10.1.0",
     "human-time": "^0.0.2",
     "jsonwebtoken": "^8.5.1",
     "jwt-decode": "^3.1.2",

@@ -45,6 +45,6 @@ export class UserController {
   @Post('uploadFile')
   @UseInterceptors(FileInterceptor('file'))
   uploadFile(@UploadedFile() file: Express.Multer.File) {
-    return this.CosService.uploadImage(file)
+    // return this.CosService.uploadImage(file)
   }
 }

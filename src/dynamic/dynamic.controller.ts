@@ -7,12 +7,15 @@ import {
   Param,
   Delete,
   Req,
-  UseGuards
+  UseGuards,
+  UseInterceptors,
+  UploadedFile
 } from '@nestjs/common'
 import { DynamicService } from './dynamic.service'
 import { CreateDynamicDto } from './dto/create-dynamic.dto'
 import { UpdateDynamicDto } from './dto/update-dynamic.dto'
 import { JwtGuard } from 'src/auth/guard'
+import { FileInterceptor } from '@nestjs/platform-express'
 
 @Controller('dynamic')
 export class DynamicController {

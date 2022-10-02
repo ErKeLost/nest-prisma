@@ -15,11 +15,9 @@ export class CosService {
     )
   }
 
-  public async uploadImage(img: any) {
-    console.log(img)
-
-    const fullPath = generatePath(img.originalname)
-    const [error, imgPath] = await this.cos.uploadImg(fullPath, img.buffer)
+  public async uploadImage(img: any, fileBuffer: any) {
+    const fullPath = generatePath(img.originalFilename)
+    const [error, imgPath] = await this.cos.uploadImg(fullPath, fileBuffer)
     if (error) {
       throw error
     }
