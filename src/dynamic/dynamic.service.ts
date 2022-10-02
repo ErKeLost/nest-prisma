@@ -12,6 +12,9 @@ export class DynamicService {
         resolve({ fields, files })
       })
     })
+    const userId = createDynamicDto.user.id
+    console.log(userId)
+
     console.log(res)
     return res
   }
