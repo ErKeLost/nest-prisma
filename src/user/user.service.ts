@@ -23,7 +23,6 @@ export class UserService {
   }
   async uploadImageToCloudinary(file: Express.Multer.File) {
     const res = await this.cloudinary.uploadImage(file)
-    console.log(res)
     return res
   }
 }

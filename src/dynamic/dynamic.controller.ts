@@ -81,8 +81,6 @@ export class DynamicController {
 
   @Post('search')
   getDynamicByText(@Body('text') query) {
-    console.log(query)
-
     const prismaQuery: any = {
       include: {
         author: true,

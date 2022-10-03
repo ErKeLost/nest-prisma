@@ -87,8 +87,6 @@ export class DynamicService {
   }
   async getDynamicByContent(params: any = {}) {
     const res = await this.prisma.dynamic.findMany(params)
-    console.log(res)
-
     return res.map(dynamicTransform)
   }
 }
