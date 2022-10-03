@@ -22,7 +22,7 @@ export class CosService {
       throw error
     }
     return {
-      path: imgPath
+      path: `https://${imgPath}`
     }
   }
 }

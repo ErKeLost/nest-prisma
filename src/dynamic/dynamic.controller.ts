@@ -26,4 +26,34 @@ export class DynamicController {
   release(@Req() createDynamicDto: CreateDynamicDto) {
     return this.dynamicService.release(createDynamicDto)
   }
+
+  @Get('getDynamic')
+  getDynamic() {
+    return this.dynamicService.getDynamic({
+      include: {
+        author: true,
+        mediaFiles: true,
+        replies: {
+          include: {
+            author: true
+          }
+        },
+        replyTo: {
+          include: {
+            author: true
+          }
+        }
+      },
+      orderBy: [
+        {
+          createdAt: 'desc'
+        }
+      ]
+    })
+  }
+
+  @Get(':id')
+  getDynamicById(@Param('id') id) {
+    return this.dynamicService.getDynamicById(id)
+  }
 }
