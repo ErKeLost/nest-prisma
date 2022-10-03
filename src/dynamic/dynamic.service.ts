@@ -76,8 +76,20 @@ export class DynamicService {
     })
     return res.map(dynamicTransform)
   }
-  async getDynamicById(id: string) {
-    return id
+  async getDynamicById(id: string, params: any = {}) {
+    const res = await this.prisma.dynamic.findUnique({
+      ...params,
+      where: {
+        id: id
+      }
+    })
+    return dynamicTransform(res)
+  }
+  async getDynamicByContent(params: any = {}) {
+    const res = await this.prisma.dynamic.findMany(params)
+    console.log(res)
+
+    return res.map(dynamicTransform)
   }
 }
 

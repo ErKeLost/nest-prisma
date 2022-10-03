@@ -9,7 +9,8 @@ import {
   Req,
   UseGuards,
   UseInterceptors,
-  UploadedFile
+  UploadedFile,
+  Query
 } from '@nestjs/common'
 import { DynamicService } from './dynamic.service'
 import { CreateDynamicDto } from './dto/create-dynamic.dto'
@@ -54,6 +55,60 @@ export class DynamicController {
 
   @Get(':id')
   getDynamicById(@Param('id') id) {
-    return this.dynamicService.getDynamicById(id)
+    const prismaQuery: any = {
+      include: {
+        author: true,
+        mediaFiles: true,
+        replyTo: {
+          include: {
+            author: true
+          }
+        },
+        replies: {
+          include: {
+            author: true,
+            replyTo: {
+              include: {
+                author: true
+              }
+            }
+          }
+        }
+      }
+    }
+    return this.dynamicService.getDynamicById(id, prismaQuery)
+  }
+
+  @Post('search')
+  getDynamicByText(@Body('text') query) {
+    console.log(query)
+
+    const prismaQuery: any = {
+      include: {
+        author: true,
+        mediaFiles: true,
+        replyTo: {
+          include: {
+            author: true
+          }
+        },
+        replies: {
+          include: {
+            author: true,
+            replyTo: {
+              include: {
+                author: true
+              }
+            }
+          }
+        }
+      },
+      where: {
+        text: {
+          contains: query
+        }
+      }
+    }
+    return this.dynamicService.getDynamicByContent(prismaQuery)
   }
 }
