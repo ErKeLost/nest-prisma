@@ -51,7 +51,7 @@ export class AuthService {
     const pwMatches = await argon.verify(user.password, dto.password)
     // compare password
     if (!pwMatches) throw new ForbiddenException('Credentials taken')
-    return this.signToken(user.id)
+    return this.signToken(user)
   }
   async signToken(user: any): Promise<{ access_token: any }> {
     const payload = {

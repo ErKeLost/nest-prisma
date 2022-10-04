@@ -19,19 +19,19 @@ import { JwtGuard } from '../auth/guard'
 import { EditUserDto } from './dto'
 import { UserService } from './user.service'
 import { CosService } from '../tencentCloud/cos.service'
-@Controller('users')
+@Controller('user')
 export class UserController {
   constructor(
     private userService: UserService,
     private CosService: CosService
   ) {}
   @UseGuards(JwtGuard)
-  @Get()
+  @Get('getUserInfo')
   getUser(@GetUser() user: User, @GetUser('email') email: string) {
     return user
   }
 
-  @Post()
+  @Post('editUserInfo')
   editUser(@GetUser('id') userId: string, @Body() dto: EditUserDto) {
     return this.userService.editUser(userId, dto)
   }

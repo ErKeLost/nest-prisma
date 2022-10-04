@@ -17,6 +17,7 @@ async function bootstrap() {
     .setTitle('Erkelost')
     .setDescription('The Swagger Api')
     .setVersion('0.0.1')
+    .addBearerAuth()
     .build()
   // 创建 swagger 模块 与 实例
   const document = SwaggerModule.createDocument(app, config)

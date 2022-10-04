@@ -1,7 +1,7 @@
 import { Strategy, ExtractJwt } from 'passport-jwt'
 import { PassportStrategy } from '@nestjs/passport'
 import { ConfigService } from '@nestjs/config'
-import { Injectable } from '@nestjs/common'
+import { Injectable, UnauthorizedException } from '@nestjs/common'
 import { PrismaService } from 'src/prisma/prisma.service'
 
 @Injectable()
@@ -18,6 +18,9 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
         id: payload.sub
       }
     })
+    if (!user) {
+      throw new UnauthorizedException('token不正确')
+    }
     delete user.password
     return user
   }
