@@ -49,8 +49,12 @@ export class AuthService {
     })
     // if user dose not exist throw exception
     if (!user) throw new ForbiddenException('邮箱不存在~')
+    console.log(user.password)
+    console.log(dto.password)
+
     const pwMatches = await argon.verify(user.password, dto.password)
     // compare password
+    console.log(pwMatches)
     if (!pwMatches) throw new ForbiddenException('Credentials taken')
     const signToken = await this.signToken(user, false)
     return signToken
@@ -104,6 +108,38 @@ export class AuthService {
       }
     })
   }
-  async logout() {}
-  async refreshToken() {}
+  async logout(user: any) {
+    const res = await this.prisma.refreshToken.updateMany({
+      where: {
+        userId: user.sub,
+        token: {
+          not: ''
+        }
+      },
+      data: {
+        token: ''
+      }
+    })
+    return res
+  }
+  async refreshToken(userId: string, refreshToken: string) {
+    const user = await this.prisma.user.findUnique({
+      where: {
+        id: userId
+      },
+      include: {
+        RefreshToken: true
+      }
+    })
+    const dbRefreshToken = user.RefreshToken[0].token
+    // if user dose not exist throw exception
+    if (!user || dbRefreshToken)
+      throw new ForbiddenException('Credentials taken')
+    const pwMatches = await argon.verify(dbRefreshToken, refreshToken)
+    // compare password
+    console.log(pwMatches, 'pwMatches')
+    if (!pwMatches) throw new ForbiddenException('Credentials taken')
+    const signToken = await this.signToken(user, false)
+    return signToken
+  }
 }
