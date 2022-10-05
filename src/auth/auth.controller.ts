@@ -5,9 +5,10 @@ import {
   HttpStatus,
   Post,
   Req,
+  Res,
   UseGuards
 } from '@nestjs/common'
-import { Request } from 'express'
+import { Request, Response } from 'express'
 import { AuthGuard } from '@nestjs/passport'
 import { AuthService } from './auth.service'
 import { AuthDto } from './dto'
@@ -26,8 +27,8 @@ export class AuthController {
   // 登录不需要创建任何内容 所以我们 返回200 就行了 201 是向数据库中创建内容
   @HttpCode(HttpStatus.OK)
   @Post('signin')
-  signin(@Body() dto: AuthDto) {
-    return this.authService.signin(dto)
+  signin(@Body() dto: AuthDto, @Res({ passthrough: true }) response: Response) {
+    return this.authService.signin(dto, response)
   }
 
   @UseGuards(AuthGuard('jwt'))

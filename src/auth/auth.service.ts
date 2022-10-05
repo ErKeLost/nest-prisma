@@ -40,7 +40,7 @@ export class AuthService {
       throw err
     }
   }
-  async signin(dto: AuthDto) {
+  async signin(dto: AuthDto, response) {
     // find user by username
     const user = await this.prisma.user.findUnique({
       where: {
@@ -49,14 +49,19 @@ export class AuthService {
     })
     // if user dose not exist throw exception
     if (!user) throw new ForbiddenException('邮箱不存在~')
-    console.log(user.password)
-    console.log(dto.password)
+    // console.log(user.password)
+    // console.log(dto.password)
 
     const pwMatches = await argon.verify(user.password, dto.password)
     // compare password
-    console.log(pwMatches)
+    // console.log(pwMatches)
     if (!pwMatches) throw new ForbiddenException('Credentials taken')
     const signToken = await this.signToken(user, false)
+    // console.log(response)
+    response.cookie('refresh_token', signToken.refresh_token, {
+      httpOnly: true
+    })
+
     return signToken
   }
   // updateFlag 判断登录 还是 注册 注册 true 新建 refreshToken 表 登录 false 更新 refreshToken 表
