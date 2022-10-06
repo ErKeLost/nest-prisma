@@ -63,7 +63,7 @@ export class AuthService {
     response.cookie('refresh_token', signToken.refresh_token, {
       httpOnly: true
     })
-    return signToken
+    return { ...user, ...signToken }
   }
   // updateFlag 判断登录 还是 注册 注册 true 新建 refreshToken 表 登录 false 更新 refreshToken 表
   async signToken(user: any, updateFlag: boolean): Promise<Tokens> {
