@@ -11,7 +11,7 @@ import {
 import { Request, Response } from 'express'
 import { AuthGuard } from '@nestjs/passport'
 import { AuthService } from './auth.service'
-import { AuthDto } from './dto'
+import { AuthDto, AuthSigninDto } from './dto'
 import { JwtGuard } from './guard'
 // import { Public } from 'src/common/decorators'
 
@@ -22,12 +22,17 @@ export class AuthController {
   @Post('signup')
   @HttpCode(HttpStatus.CREATED)
   signup(@Body() dto: AuthDto) {
+    console.log(dto)
+
     return this.authService.signup(dto)
   }
   // 登录不需要创建任何内容 所以我们 返回200 就行了 201 是向数据库中创建内容
   @HttpCode(HttpStatus.OK)
   @Post('signin')
-  signin(@Body() dto: AuthDto, @Res({ passthrough: true }) response: Response) {
+  signin(
+    @Body() dto: AuthSigninDto,
+    @Res({ passthrough: true }) response: Response
+  ) {
     return this.authService.signin(dto, response)
   }
 

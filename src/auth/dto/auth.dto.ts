@@ -7,22 +7,22 @@ export class AuthDto {
   email: string
 
   @ApiProperty({ required: false })
-  @IsString()
+  // @IsString()
   // @IsNotEmpty()
   name?: string
 
   @ApiProperty()
   @IsString()
-  // @IsNotEmpty()
+  @IsNotEmpty()
   username: string
 
   @ApiProperty()
   @IsString()
-  // @IsNotEmpty()
+  @IsNotEmpty()
   password: string
 
   @ApiProperty({ required: false })
-  @IsString()
+  // @IsString()
   // @IsNotEmpty()
   profileImage?: string
 }

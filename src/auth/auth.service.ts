@@ -1,6 +1,6 @@
 import { Body, ForbiddenException, Injectable } from '@nestjs/common'
 import { PrismaService } from '../prisma/prisma.service'
-import { AuthDto } from './dto'
+import { AuthDto, AuthSigninDto } from './dto'
 import * as argon from 'argon2'
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime'
 import { JwtService } from '@nestjs/jwt'
@@ -40,19 +40,21 @@ export class AuthService {
       throw err
     }
   }
-  async signin(dto: AuthDto, response) {
+  async signin(dto: AuthSigninDto, response) {
     // find user by username
     const user = await this.prisma.user.findUnique({
       where: {
-        email: dto.email
+        username: dto.username
       }
     })
     // if user dose not exist throw exception
-    if (!user) throw new ForbiddenException('邮箱不存在~')
+    if (!user) throw new ForbiddenException('请输入正确的用户名和密码~')
     // console.log(user.password)
     // console.log(dto.password)
 
     const pwMatches = await argon.verify(user.password, dto.password)
+    console.log(user)
+    console.log(pwMatches)
     // compare password
     // console.log(pwMatches)
     if (!pwMatches) throw new ForbiddenException('Credentials taken')
@@ -61,7 +63,6 @@ export class AuthService {
     response.cookie('refresh_token', signToken.refresh_token, {
       httpOnly: true
     })
-
     return signToken
   }
   // updateFlag 判断登录 还是 注册 注册 true 新建 refreshToken 表 登录 false 更新 refreshToken 表
@@ -83,6 +84,11 @@ export class AuthService {
       expiresIn: 60 * 60 * 24 * 7,
       secret: refreshTokenSecret
     })
+    console.log({
+      access_token: accessToken,
+      refresh_token: refreshToken
+    })
+
     if (updateFlag) {
       await this.createRefreshHash(user.id, refreshToken)
     } else {
