@@ -30,13 +30,15 @@ export class DynamicService {
     //   }
     // })
     // console.log(buffer)
+    // console.log(res)
     const fileBuffer = await fs.readFile(res.files.file.filepath)
 
     const userId = createDynamicDto.user.id
 
     // return dynamicData
-    const replyTo = res.fields.replyTo
-    console.log(replyTo)
+    const replyTo =
+      res.fields.replyTo === 'undefined' ? null : res.fields.replyTo
+    // console.log(replyTo)
     const dynamicData: any = {
       text: res.fields.text,
       authorId: userId
@@ -44,10 +46,13 @@ export class DynamicService {
     if (replyTo && replyTo !== 'null') {
       dynamicData.replyToId = replyTo
     }
-    console.log(dynamicData)
+    // console.log(dynamicData)
 
     const dynamic = await this.prisma.dynamic.create({
-      data: dynamicData
+      data: dynamicData,
+      include: {
+        author: true
+      }
     })
 
     const dynamicTransformData = dynamicTransform(dynamic)
@@ -67,7 +72,11 @@ export class DynamicService {
       })
     }
     await Promise.all(filePromises)
-    return dynamicTransformData
+    console.log(dynamic)
+    return {
+      ...dynamicTransformData,
+      image: image.path
+    }
   }
 
   async getDynamic(params = {}) {
