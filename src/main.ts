@@ -7,6 +7,8 @@ import { VersioningType } from '@nestjs/common'
 // 全局返回数据拦截器
 import { TransformInterceptor } from './common/interceptors'
 import { AllExceptionsFilter, HttpExceptionFilter } from './common/exceptions'
+
+declare const module: any
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
   // 全局校验pipe
@@ -35,7 +37,10 @@ async function bootstrap() {
   // 创建 swagger 模块 与 实例
   const document = SwaggerModule.createDocument(app, config)
   SwaggerModule.setup('api', app, document)
-
+  if (module.hot) {
+    module.hot.accept()
+    module.hot.dispose(() => app.close())
+  }
   // listener
   await app.listen(3333)
 }
