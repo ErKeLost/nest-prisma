@@ -1,6 +1,11 @@
 # compiled output
 /dist
+/.config
 /node_modules
+.dev.yaml
+.prod.yaml
+.test.yaml
+
 
 # Logs
 logs
@@ -36,4 +41,3 @@ lerna-debug.log*
 
 # env
 .env
-.config/*
