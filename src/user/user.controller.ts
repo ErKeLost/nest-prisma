@@ -6,7 +6,8 @@ import {
   Req,
   UploadedFile,
   UseGuards,
-  UseInterceptors
+  UseInterceptors,
+  Version
 } from '@nestjs/common'
 import { User } from '@prisma/client'
 import { Request } from 'express'
@@ -19,13 +20,17 @@ import { JwtGuard } from '../auth/guard'
 import { EditUserDto } from './dto'
 import { UserService } from './user.service'
 import { CosService } from '../tencentCloud/cos.service'
-@Controller('user')
+@Controller({
+  path: 'user'
+  // version: '1', 单个表 controller 控制版本
+})
 export class UserController {
   constructor(
     private userService: UserService,
     private CosService: CosService
   ) {}
   @UseGuards(JwtGuard)
+  // @Version('1')  // 基础版本控制
   @Get('getUserInfo')
   getUser(@GetUser() user: User, @GetUser('email') email: string) {
     return user

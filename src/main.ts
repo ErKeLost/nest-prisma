@@ -2,6 +2,10 @@ import { ValidationPipe } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import { AppModule } from './app.module'
+// 版本控制
+import { VersioningType } from '@nestjs/common'
+// 全局返回数据拦截器
+import { TransformInterceptor } from './common/interceptors/transform.interceptor'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
@@ -12,6 +16,13 @@ async function bootstrap() {
       whitelist: true
     })
   )
+  // 统一响应体格式
+  app.useGlobalInterceptors(new TransformInterceptor())
+  // 全局版本控制
+  app.enableVersioning({
+    // defaultVersion: '1', // 全局都要带v1版本
+    type: VersioningType.URI
+  })
   // 配置 swagger
   const config = new DocumentBuilder()
     .setTitle('Erkelost')
