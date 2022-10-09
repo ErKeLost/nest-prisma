@@ -6,13 +6,20 @@ import { PrismaModule } from './prisma/prisma.module'
 import { CloudinaryModule } from './cloudinary/cloudinary.module'
 import { MulterModule } from '@nestjs/platform-express'
 import { DynamicModule } from './dynamic/dynamic.module'
+import { getConfig } from './utils'
 // import COSStorage from 'multer-cos-x'
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const COSStorage = require('multer-cos-x')
 @Module({
   imports: [
+    // ConfigModule.forRoot({
+    //   isGlobal: true
+    // }),
+    // 使用yml文件 默认阻止config读取env文件
     ConfigModule.forRoot({
-      isGlobal: true
+      ignoreEnvFile: true,
+      isGlobal: true,
+      load: [getConfig]
     }),
     AuthModule,
     UserModule,

@@ -5,8 +5,8 @@ import { AppModule } from './app.module'
 // 版本控制
 import { VersioningType } from '@nestjs/common'
 // 全局返回数据拦截器
-import { TransformInterceptor } from './common/interceptors/transform.interceptor'
-
+import { TransformInterceptor } from './common/interceptors'
+import { AllExceptionsFilter, HttpExceptionFilter } from './common/exceptions'
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
   // 全局校验pipe
@@ -16,6 +16,8 @@ async function bootstrap() {
       whitelist: true
     })
   )
+  // 异常过滤器
+  app.useGlobalFilters(new AllExceptionsFilter(), new HttpExceptionFilter())
   // 统一响应体格式
   app.useGlobalInterceptors(new TransformInterceptor())
   // 全局版本控制

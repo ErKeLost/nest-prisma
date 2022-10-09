@@ -20,6 +20,7 @@ import { JwtGuard } from '../auth/guard'
 import { EditUserDto } from './dto'
 import { UserService } from './user.service'
 import { CosService } from '../tencentCloud/cos.service'
+import { BusinessException } from 'src/common/exceptions/business.exception'
 @Controller({
   path: 'user'
   // version: '1', 单个表 controller 控制版本
@@ -51,5 +52,17 @@ export class UserController {
   @UseInterceptors(FileInterceptor('file'))
   uploadFile(@UploadedFile() file: Express.Multer.File) {
     // return this.CosService.uploadImage(file)
+  }
+
+  // 业务异常测试
+  @Get('findBusinessError')
+  findBusinessError() {
+    const a: any = {}
+    try {
+      console.log(a.b.c)
+    } catch (error) {
+      throw new BusinessException('你这个参数错了')
+    }
+    return 6666
   }
 }
