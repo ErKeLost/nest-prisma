@@ -11,7 +11,7 @@
     "build": "nest build",
     "build:webpack": "nest build --webpack",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "start": "nest start",
+    "start": "nest start --watch",
     "start:dev": "cross-env RUNNING_ENV=dev nest start --watch",
     "start:test": "cross-env RUNNING_ENV=test nest start --watch",
     "start:prod": "cross-env RUNNING_ENV=prod nest start --watch",
