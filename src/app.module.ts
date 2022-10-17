@@ -17,9 +17,9 @@ const COSStorage = require('multer-cos-x')
     // }),
     // 使用yml文件 默认阻止config读取env文件
     ConfigModule.forRoot({
-      // ignoreEnvFile: true,
+      ignoreEnvFile: true,
       isGlobal: true,
-      // load: [getConfig]
+      load: [getConfig]
     }),
     AuthModule,
     UserModule,
