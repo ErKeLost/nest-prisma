@@ -23,7 +23,7 @@ model User {
   updatedAt    DateTime @updatedAt
 
   RefreshToken RefreshToken[]
-  Dynamic        Dynamic[]
+  Dynamic      Dynamic[]
   MediaFile    MediaFile[]
 }
 
@@ -38,7 +38,7 @@ model Dynamic {
   author   User   @relation(fields: [authorId], references: [id])
   authorId String @db.ObjectId
 
-  replyToId String? @db.ObjectId
+  replyToId String?   @db.ObjectId
   replyTo   Dynamic?  @relation("replies", fields: [replyToId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   replies   Dynamic[] @relation("replies")
 
@@ -59,8 +59,8 @@ model MediaFile {
   userId String @db.ObjectId
 
   // Tweets
-  dynamic   Dynamic?  @relation(fields: [dynamicId], references: [id])
-  dynamicId String? @db.ObjectId
+  dynamic   Dynamic? @relation(fields: [dynamicId], references: [id])
+  dynamicId String?  @db.ObjectId
 }
 
 model Auth {
