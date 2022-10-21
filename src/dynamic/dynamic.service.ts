@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common'
+import { log } from 'console'
 import { formidable } from 'formidable'
 import { PrismaService } from '../prisma/prisma.service'
 import { CosService } from '../tencentCloud/cos.service'
@@ -80,10 +81,15 @@ export class DynamicService {
   }
 
   async getDynamic(params = {}) {
-    const res = await this.prisma.dynamic.findMany({
-      ...params
-    })
-    return res.map(dynamicTransform)
+    try {
+      const res = await this.prisma.dynamic.findMany({
+        ...params
+      })
+      console.log(res)
+      return res.map(dynamicTransform)
+    } catch (err) {
+      console.warn(err)
+    }
   }
   async getDynamicById(id: string, params: any = {}) {
     const res = await this.prisma.dynamic.findUnique({

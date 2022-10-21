@@ -21,10 +21,11 @@ import { EditUserDto } from './dto'
 import { UserService } from './user.service'
 import { CosService } from '../tencentCloud/cos.service'
 import { BusinessException } from 'src/common/exceptions/business.exception'
-@Controller({
-  path: 'user'
-  // version: '1', 单个表 controller 控制版本
-})
+// @Controller({
+//   path: 'user'
+//   // version: '1', 单个表 controller 控制版本
+// })
+@Controller('user')
 export class UserController {
   constructor(
     private userService: UserService,
@@ -37,8 +38,11 @@ export class UserController {
     return user
   }
 
+  @UseGuards(JwtGuard)
   @Post('editUserInfo')
-  editUser(@GetUser('id') userId: string, @Body() dto: EditUserDto) {
+  editUser(@GetUser('id') userId: string, @Req() dto: EditUserDto) {
+    console.log(userId)
+    console.log(dto)
     return this.userService.editUser(userId, dto)
   }
 
