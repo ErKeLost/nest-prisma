@@ -19,6 +19,7 @@ export class AuthService {
     try {
       // generate ths hash password
       const hash = await argon.hash(dto.password)
+      console.log(hash)
 
       // save new user info in db
       const user = await this.prisma.user.create({
@@ -27,6 +28,8 @@ export class AuthService {
           password: hash
         }
       })
+      console.log(user)
+
       // TODO transformer
       // delete user.password;
       // return the save user
@@ -142,10 +145,16 @@ export class AuthService {
         RefreshToken: true
       }
     })
+    console.log(user)
+
     const dbRefreshToken = user.RefreshToken[0].token
+    console.log(!user)
+
     // if user dose not exist throw exception
-    if (!user || dbRefreshToken)
-      throw new ForbiddenException('Credentials taken')
+    if (!user || !dbRefreshToken)
+      throw new ForbiddenException(
+        'Credentials taken, 当前用户不存在, 或者refreshtoken已失效， 请重新登陆'
+      )
     const pwMatches = await argon.verify(dbRefreshToken, refreshToken)
     // compare password
     console.log(pwMatches, 'pwMatches')

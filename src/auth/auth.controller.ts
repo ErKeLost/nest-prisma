@@ -22,8 +22,6 @@ export class AuthController {
   @Post('signup')
   @HttpCode(HttpStatus.CREATED)
   signup(@Body() dto: AuthDto) {
-    console.log(dto)
-
     return this.authService.signup(dto)
   }
   // 登录不需要创建任何内容 所以我们 返回200 就行了 201 是向数据库中创建内容
@@ -49,7 +47,6 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   refreshToken(@Req() req: Request) {
     const user = req.user
-    console.log(user)
     return this.authService.refreshToken(user['sub'], user['refreshToken'])
   }
 }
