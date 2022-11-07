@@ -12,15 +12,15 @@ import { getConfig } from './utils'
 const COSStorage = require('multer-cos-x')
 @Module({
   imports: [
-    // ConfigModule.forRoot({
-    //   isGlobal: true
-    // }),
-    // 使用yml文件 默认阻止config读取env文件
     ConfigModule.forRoot({
-      ignoreEnvFile: true,
-      isGlobal: true,
-      load: [getConfig]
+      isGlobal: true
     }),
+    // 使用yml文件 默认阻止config读取env文件
+    // ConfigModule.forRoot({
+    //   ignoreEnvFile: true,
+    //   isGlobal: true,
+    //   load: [getConfig]
+    // }),
     AuthModule,
     UserModule,
     PrismaModule,

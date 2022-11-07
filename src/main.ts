@@ -23,10 +23,10 @@ async function bootstrap() {
   // 统一响应体格式
   app.useGlobalInterceptors(new TransformInterceptor())
   // 全局版本控制
-  app.enableVersioning({
-    // defaultVersion: '1', // 全局都要带v1版本
-    type: VersioningType.URI
-  })
+  // app.enableVersioning({
+  //   // defaultVersion: '1', // 全局都要带v1版本
+  //   type: VersioningType.URI
+  // })
   // 配置 swagger
   const config = new DocumentBuilder()
     .setTitle('Erkelost')
@@ -41,6 +41,7 @@ async function bootstrap() {
     module.hot.accept()
     module.hot.dispose(() => app.close())
   }
+  app.enableCors() //node设置跨域
   // listener
   await app.listen(3333)
 }
